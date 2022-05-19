@@ -51,7 +51,7 @@ PM10_test = PM10_data[split:]
 date_train = data['Data'][:split]
 date_test = data['Data'][split:]
 
-look_back = 3
+look_back = 15
 
 train_generator = TimeseriesGenerator(PM25_train, PM25_train, length=look_back, batch_size=20)
 test_generator = TimeseriesGenerator(PM25_test, PM25_test, length=look_back, batch_size=1)
@@ -59,7 +59,11 @@ test_generator = TimeseriesGenerator(PM25_test, PM25_test, length=look_back, bat
 
 
 model = Sequential()
-model.add(LSTM(4,input_shape=(look_back, 1)))
+model.add(
+    LSTM(10,
+        activation='relu',
+        input_shape=(look_back, 1))
+)
 model.add(Dense(1))
 model.compile(optimizer='adam', loss='mse')
 
@@ -72,35 +76,31 @@ PM25_train = PM25_train.reshape((-1))
 PM25_test = PM25_test.reshape((-1))
 prediction = prediction.reshape((-1))
 
-testScore = math.sqrt(mean_squared_error(testY, testPredict[:,0]))
-print('Test Score: %.2f RMSE' % (testScore))
-
 trace1 = go.Scatter(
     x = date_train,
     y = PM25_train,
     mode = 'lines',
-    name = 'Data'
+    name = 'Dane'
 )
 trace2 = go.Scatter(
     x = date_test,
     y = prediction,
     mode = 'lines',
-    name = 'Prediction'
+    name = 'Predykcja'
 )
 trace3 = go.Scatter(
     x = date_test,
     y = PM25_test,
     mode='lines',
-    name = 'Ground Truth'
+    name = 'Rzeczywistość'
 )
 layout = go.Layout(
-    title = "Google Stock",
-    xaxis = {'title' : "Date"},
-    yaxis = {'title' : "Close"}
+    title = "Predykcja PM2.5",
+    xaxis = {'title' : "Data"},
+    yaxis = {'title' : "PM2.5[ug/m3]"}
 )
 fig = go.Figure(data=[trace1, trace2, trace3], layout=layout)
 fig.show()
-
 
 
 
