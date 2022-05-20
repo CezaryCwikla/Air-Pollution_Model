@@ -18,6 +18,12 @@ data.rename(columns = {'(pył zawieszony PM2.5 [jednostka ug/m3])':'PM2.5'
                     , '(tlenek węgla [jednostka ug/m3])':'CO'
                     , '(benzen [jednostka ug/m3])':'benzen'
                     , '(dwutlenek azotu [jednostka ug/m3])':'NO2'
+                    , 'Scalanie1.B00202A.Wynik':'Kierunek wiatru'
+                    , 'Scalanie1.B00300S.Wynik':'Temperatura powietrza'
+                    , 'Scalanie1.B00606S.Wynik':'Opady'
+                    , 'Scalanie1.B00702A.Wynik':'Predkosc wiatru'
+                    , 'Scalanie1.B00703A.Wynik':'MAX Predkosc wiatru'
+                    , 'Scalanie1.B00802A.Wynik':'Wilgotnosc powietrza'
                     }, inplace = True)
 
 data.dropna(inplace=True)
