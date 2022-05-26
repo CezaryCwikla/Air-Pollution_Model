@@ -17,6 +17,7 @@ from keras.layers import LSTM, Dense
 
 def build_model(optimizer):
     grid_model = Sequential()
+    #pytnaie tylko czy liczbaw warst jest odpowiednia, czy funkcja aktywacji sie zgadza etc
     grid_model.add(LSTM(50, activation='relu', return_sequences=True,input_shape=(LOOK_BACK, 10)))
     grid_model.add(LSTM(50))
     grid_model.add(Dense(1))
@@ -86,9 +87,9 @@ print("testX Shape-- ",testX.shape)
 print("testY Shape-- ",testY.shape)
 
 grid_model = KerasRegressor(build_fn=build_model,verbose=1,validation_data=(testX,testY))
-parameters = {'batch_size' : [16,20,32,64],
-              'epochs' : [8],
-              'optimizer' : ['adam'] }
+parameters = {'batch_size' : [16,20,32,64], #tutaj mozna sie pobawic batch size
+              'epochs' : [8, 10, 15], #tutaj mozna sie pobawic liczba epoch
+              'optimizer' : ['adam'] } #tutaj mozna dodac jakis optimizer, ale adam wszedzie raczej wygrywal
 
 
 grid_search  = GridSearchCV(estimator = grid_model,
