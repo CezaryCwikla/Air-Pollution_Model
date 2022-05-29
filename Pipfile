@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+plotly = "*"
 absl-py = "==1.0.0"
 argon2-cffi = "==21.3.0"
 argon2-cffi-bindings = "==21.2.0"

@@ -18,7 +18,8 @@ from keras.layers import LSTM, Dense
 def build_model(optimizer):
     grid_model = Sequential()
     # pytnaie tylko czy liczbaw warst jest odpowiednia, czy funkcja aktywacji sie zgadza etc
-    grid_model.add(LSTM(50, activation='relu', return_sequences=True, input_shape=(LOOK_BACK, n_features)))
+    grid_model.add(LSTM(50, activation='relu',
+                   return_sequences=True, input_shape=(LOOK_BACK, n_features)))
     grid_model.add(LSTM(50))
     grid_model.add(Dense(1))
 
@@ -35,22 +36,24 @@ def createXY(dataset, n_past):
     return np.array(dataX), np.array(dataY)
 
 
-data = pd.read_csv('Data/Scalanie2.csv', parse_dates=['Data'])
+data = pd.read_csv('Data/Scalanie2_2.csv', parse_dates=['Data'])
 
-data.rename(columns={'(pył zawieszony PM2.5 [jednostka ug/m3])': 'PM2.5'
-    , '(pył zawieszony PM10 [jednostka ug/m3])': 'PM10'
-    , '(tlenek azotu [jednostka ug/m3])': 'NO'
-    , '(tlenki azotu [jednostka ug/m3])': 'NOs'
-    , '(tlenek węgla [jednostka ug/m3])': 'CO'
-    , '(benzen [jednostka ug/m3])': 'benzen'
-    , '(dwutlenek azotu [jednostka ug/m3])': 'NO2'
-    , 'B00202A (2).Wynik': 'Kierunek wiatru'
-    , 'Scalanie1.B00300S.Wynik': 'Temperatura powietrza'
-    , 'Scalanie1.B00606S.Wynik': 'Opady'
-    , 'Scalanie1.B00702A.Wynik': 'Predkosc wiatru'
-    , 'Scalanie1.B00703A.Wynik': 'MAX Predkosc wiatru'
-    , 'Scalanie1.B00802A.Wynik': 'Wilgotnosc powietrza'
-                     }, inplace=True)
+data.rename(
+    columns={'(pył zawieszony PM2.5 [jednostka ug/m3])': 'PM2.5',
+             '(pył zawieszony PM10 [jednostka ug/m3])': 'PM10',
+             '(tlenek azotu [jednostka ug/m3])': 'NO',
+             '(tlenki azotu [jednostka ug/m3])': 'NOs',
+             '(tlenek węgla [jednostka ug/m3])': 'CO',
+             '(benzen [jednostka ug/m3])': 'benzen',
+             '(dwutlenek azotu [jednostka ug/m3])': 'NO2',
+             'B00202A (2).Wynik': 'Kierunek wiatru',
+             'Scalanie1.B00300S.Wynik': 'Temperatura powietrza',
+             'Scalanie1.B00606S.Wynik': 'Opady',
+             'Scalanie1.B00702A.Wynik': 'Predkosc wiatru',
+             'Scalanie1.B00703A.Wynik': 'MAX Predkosc wiatru',
+             'Scalanie1.B00802A.Wynik': 'Wilgotnosc powietrza'
+             }, inplace=True
+)
 
 data.dropna(inplace=True)
 # data_df = data
@@ -58,7 +61,8 @@ data.dropna(inplace=True)
 # data_df = data_df.drop('index', axis=1)
 # data_df.index = data_df['Data']
 
-data = data.drop(['Scalanie1.Stacja', 'Scalanie1.Data', 'Scalanie1.Rodzaj'], axis=1)
+data = data.drop(['Scalanie1.Stacja', 'Scalanie1.Data',
+                 'Scalanie1.Rodzaj'], axis=1)
 data['Data'] = pd.to_datetime(data['Data'])
 data = data.sort_values(by="Data")
 
@@ -86,7 +90,8 @@ print("trainY Shape-- ", trainY.shape)
 print("testX Shape-- ", testX.shape)
 print("testY Shape-- ", testY.shape)
 
-grid_model = KerasRegressor(build_fn=build_model, verbose=1, validation_data=(testX, testY))
+grid_model = KerasRegressor(
+    build_fn=build_model, verbose=1, validation_data=(testX, testY))
 parameters = {'batch_size': [16],  # tutaj mozna sie pobawic batch size
               'epochs': [8],  # tutaj mozna sie pobawic liczba epoch
               'optimizer': ['adam']}  # tutaj mozna dodac jakis optimizer, ale adam wszedzie raczej wygrywal
@@ -102,10 +107,12 @@ my_model = grid_search.best_estimator_.model
 
 prediction = my_model.predict(testX)
 prediction_copies_array = np.repeat(prediction, n_features, axis=-1)
-pred = scaler.inverse_transform(np.reshape(prediction_copies_array, (len(prediction), n_features)))[:, 0]
+pred = scaler.inverse_transform(np.reshape(
+    prediction_copies_array, (len(prediction), n_features)))[:, 0]
 
 original_copies_array = np.repeat(testY, n_features, axis=-1)
-original = scaler.inverse_transform(np.reshape(original_copies_array, (len(testY), n_features)))[:, 0]
+original = scaler.inverse_transform(np.reshape(
+    original_copies_array, (len(testY), n_features)))[:, 0]
 
 trace1 = go.Scatter(
     y=trainY,
