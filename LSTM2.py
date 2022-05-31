@@ -62,24 +62,9 @@ look_back = 15
 train_generator = TimeseriesGenerator(PM25_train, PM25_train, length=look_back, batch_size=20)
 test_generator = TimeseriesGenerator(PM25_test, PM25_test, length=look_back, batch_size=1)
 
-
-
-model = Sequential()
-model.add(
-    LSTM(10,
-        activation='relu',
-        input_shape=(look_back, 1))
-)
-model.add(Dense(1))
-model.compile(optimizer='adam', loss='mse')
-
-num_epochs = 25
-model.fit_generator(train_generator, epochs=num_epochs, verbose=1)
-
-model.save('model2')
+model = keras.models.load_model("model2")
 
 prediction = model.predict_generator(test_generator)
-
 PM25_train = PM25_train.reshape((-1))
 PM25_test = PM25_test.reshape((-1))
 prediction = prediction.reshape((-1))
@@ -108,8 +93,3 @@ layout = go.Layout(
     yaxis = {'title' : "PM2.5[ug/m3]"}
 )
 fig = go.Figure(data=[trace1, trace2, trace3], layout=layout)
-fig.show()
-
-
-
-print(data)

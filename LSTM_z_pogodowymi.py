@@ -104,6 +104,7 @@ grid_search = grid_search.fit(trainX, trainY)
 
 print(grid_search.best_params_)
 my_model = grid_search.best_estimator_.model
+my_model.save('model')
 
 prediction = my_model.predict(testX)
 prediction_copies_array = np.repeat(prediction, n_features, axis=-1)
@@ -114,6 +115,8 @@ original_copies_array = np.repeat(testY, n_features, axis=-1)
 original = scaler.inverse_transform(np.reshape(
     original_copies_array, (len(testY), n_features)))[:, 0]
 
+df_test = df_test.reset_index()
+
 trace1 = go.Scatter(
     y=trainY,
     mode='lines',
@@ -121,11 +124,13 @@ trace1 = go.Scatter(
 )
 trace2 = go.Scatter(
     y=pred,
+    x = df_test['Data'],
     mode='lines',
     name='Predykcja'
 )
 trace3 = go.Scatter(
     y=original,
+    x=df_test['Data'],
     mode='lines',
     name='Rzeczywistość'
 )
@@ -134,5 +139,5 @@ layout = go.Layout(
     xaxis={'title': "Data"},
     yaxis={'title': "PM2.5[ug/m3]"}
 )
-fig = go.Figure(data=[trace2, trace3], layout=layout)
-fig.show()
+fig2 = go.Figure(data=[trace2, trace3], layout=layout)
+fig2.show()

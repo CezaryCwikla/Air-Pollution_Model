@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+
+<ul>
+  <li><a {% if request.path=='/' %}class="active"{% endif %} href="/">Home</a></li>
+  <li><a {% if request.path=='/chart1' %}class="active"{% endif %} href="chart1">Wyniki z uczenia bez danych pogodowych</a></li>
+  <li><a {% if request.path=='/chart2' %}class="active"{% endif %} href="chart2">Wyniki z uczenia z danymi pogodowymi</a></li>
+  <li><a {% if request.path=='/chart3' %}class="active"{% endif %} href="chart3">Prognoza</a></li>
+  <li><a {% if request.path=='/chart4' %}class="active"{% endif %} href="chart4">Historyczne dane z ostatniej doby</a></li>
+  <li><a {% if request.path=='/about' %}class="active"{% endif %} href="about">O nas</a></li>
+</ul>
+
+<div style="margin-left:250px;padding:1px 16px;height:1000px;">
+  <h2>{{header}}</h2>
+    <div id="chart" class="chart"></div>
+    <div>{{description}}</div>
+</div>
+
+</body>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+    var graphs = {{graphJSON | safe}};
+    Plotly.plot('chart',graphs,{});
+</script>
+</html>
+
+
