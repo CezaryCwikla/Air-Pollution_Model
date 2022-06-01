@@ -42,7 +42,7 @@ def chart2():
 @app.route('/chart3')
 def chart3():
 
-    graphJSON = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
+    graphJSON = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
     header = "Vegetables in Europe"
     description = """
     The rumor that vegetarians are having a hard time in London and Madrid can probably not be
