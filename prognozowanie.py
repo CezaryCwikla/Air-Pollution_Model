@@ -52,7 +52,6 @@ for val in history:
             "temperature_2m": weather_hourly['temperature_2m'][i],
             "precipitation": weather_hourly['precipitation'][i],
             "windspeed_10m": weather_hourly['windspeed_10m'][i],
-            "windspeed_10m_max": weather_daily['windspeed_10m_max'][0],
             "relativehumidity_2m": weather_hourly['relativehumidity_2m'][i],
             "winddirection_10m": weather_hourly['winddirection_10m'][i],
         }
@@ -68,7 +67,6 @@ for val in forecast:
             "temperature_2m": weather_hourly['temperature_2m'][i],
             "precipitation": weather_hourly['precipitation'][i],
             "windspeed_10m": weather_hourly['windspeed_10m'][i],
-            "windspeed_10m_max": weather_daily['windspeed_10m_max'][1],
             "relativehumidity_2m": weather_hourly['relativehumidity_2m'][i],
             "winddirection_10m": weather_hourly['winddirection_10m'][i],
         }
@@ -92,7 +90,7 @@ testX, testY = createXY(scaled_train, LOOK_BACK)
 # schedule.every().hour.do(geeks)
 print(testX.shape)
 # print(testY)
-n_features = 7
+n_features = 6
 prediction = my_model.predict(testX)
 prediction_copies_array = np.repeat(prediction, n_features, axis=-1)
 pred = scaler.inverse_transform(np.reshape(
