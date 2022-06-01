@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from LSTM2 import fig
 from LSTM_z_pogodowymi2 import fig2, my_model
-#from prognozowanie import fig3
+from prognozowanie import fig3
 import pandas as pd
 import json
 import plotly

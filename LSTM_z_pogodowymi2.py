@@ -67,7 +67,7 @@ data['Data'] = pd.to_datetime(data['Data'])
 data = data.sort_values(by="Data")
 
 data.set_axis(data['Data'], inplace=True)
-data.drop(columns=['PM10', 'CO', 'NO2', 'benzen', 'NO', 'NOs'], inplace=True)
+data.drop(columns=['PM10', 'CO', 'NO2', 'benzen', 'NO', 'NOs', 'MAX Predkosc wiatru'], inplace=True)
 data = data.drop('Data', axis=1)
 
 split_percent = 0.80

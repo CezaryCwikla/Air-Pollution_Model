@@ -47,8 +47,8 @@ for val in history:
     data.append(
         {
             "date": val['fromDateTime'],
-            # "pm25": val['values'][0]['value'], # same as in forecast below but throws IndexError: list index out of range
-            "pm25": randrange(10, 25),
+            "pm25": val['values'][0]['value'], # same as in forecast below but throws IndexError: list index out of range
+            #"pm25": randrange(10, 25),
             "temperature_2m": weather_hourly['temperature_2m'][i],
             "precipitation": weather_hourly['precipitation'][i],
             "windspeed_10m": weather_hourly['windspeed_10m'][i],
@@ -96,20 +96,35 @@ prediction_copies_array = np.repeat(prediction, n_features, axis=-1)
 pred = scaler.inverse_transform(np.reshape(
     prediction_copies_array, (len(prediction), n_features)))[:, 0]
 print(pred)
+
 dataFrame = dataFrame.reset_index()
+
 trace1 = go.Scatter(
-    x=dataFrame['date'],
-    y=dataFrame['pm25'],
+    x=dataFrame['date'].head(24),
+    y=dataFrame['pm25'].head(24),
     mode='lines',
     name='Dane'
 )
+trace2 = go.Scatter(
+    x=dataFrame['date'].tail(25),
+    y=pred,
+    mode='lines',
+    name='Nasza prognoza'
+)
+trace3 = go.Scatter(
+    x=dataFrame['date'].tail(25),
+    y=dataFrame['pm25'].tail(25),
+    mode='lines',
+    name='Prognoza Airly'
+)
+
 layout = go.Layout(
     title="Predykcja PM2.5",
     xaxis={'title': "Data"},
     yaxis={'title': "PM2.5[ug/m3]"}
 )
-fig3 = go.Figure(data=[trace1], layout=layout)
-
+fig3 = go.Figure(data=[trace1, trace2, trace3], layout=layout)
+fig3.show()
 trace1 = go.Scatter(
     # x=df_train['Data'],
     # y=df_train['PM2.5'],
@@ -122,7 +137,7 @@ layout = go.Layout(
     yaxis={'title': "PM2.5[ug/m3]"}
 )
 fig4 = go.Figure(data=[trace1], layout=layout)
-# fig3.show()
+#
 for val in data:
     print(val['date'])
 
