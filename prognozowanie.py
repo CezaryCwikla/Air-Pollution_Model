@@ -138,6 +138,9 @@ layout = go.Layout(
 )
 fig4 = go.Figure(data=[trace1], layout=layout)
 #
+# fig3.show()
+i = 1
 for val in data:
-    print(val['date'])
+    print(i, val['date'])
+    i = i + 1
 

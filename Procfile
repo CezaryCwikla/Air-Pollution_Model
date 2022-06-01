@@ -1,1 +1,1 @@
-web: pipenv run python "LSTM z pogodowymi.py"
+web: gunicorn app:app
