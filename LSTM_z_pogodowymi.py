@@ -115,6 +115,12 @@ original_copies_array = np.repeat(testY, n_features, axis=-1)
 original = scaler.inverse_transform(np.reshape(
     original_copies_array, (len(testY), n_features)))[:, 0]
 
+testScore = math.sqrt(mean_squared_error(original, pred))
+print('Test Score: %.2f RMSE' % testScore)
+
+with open("metrics.txt", 'w') as outfile:
+    outfile.write('Test Score: %.2f RMSE' % testScore)
+
 df_test = df_test.reset_index()
 
 trace1 = go.Scatter(

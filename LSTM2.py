@@ -64,7 +64,7 @@ test_generator = TimeseriesGenerator(PM25_test, PM25_test, length=look_back, bat
 
 model = keras.models.load_model("model2")
 
-prediction = model.predict_generator(test_generator)
+prediction = model.predict(test_generator)
 PM25_train = PM25_train.reshape((-1))
 PM25_test = PM25_test.reshape((-1))
 prediction = prediction.reshape((-1))
