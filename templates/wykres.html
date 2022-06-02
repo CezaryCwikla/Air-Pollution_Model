@@ -1,31 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Przemysł 4.0</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
+  <nav>
+    <div class="sidebar-top">
+      <span class="shrink-btn">
+        <i class='bx bx-chevron-left'></i>
+      </span>
+      <img src="/static/img/logo.png" class="logo" alt="">
+      <h3 class="hide">Przemysł 4.0</h3>
+    </div>
 
-<ul>
-  <li><a {% if request.path=='/' %}class="active"{% endif %} href="/">Home</a></li>
-  <li><a {% if request.path=='/chart1' %}class="active"{% endif %} href="chart1">Wyniki z uczenia bez danych pogodowych</a></li>
-  <li><a {% if request.path=='/chart2' %}class="active"{% endif %} href="chart2">Wyniki z uczenia z danymi pogodowymi</a></li>
-  <li><a {% if request.path=='/chart3' %}class="active"{% endif %} href="chart3">Prognoza</a></li>
-  <li><a {% if request.path=='/chart4' %}class="active"{% endif %} href="chart4">Historyczne dane z ostatniej doby</a></li>
-  <li><a {% if request.path=='/about' %}class="active"{% endif %} href="about">O nas</a></li>
-</ul>
+    <div class="sidebar-links">
+      <ul>
+        <li class="tooltip-element" data-tooltip="0">
+          <a href="/" {% if request.path=='/' %}class="active"{% endif %} data-active="0">
+            <div class="icon">
+              <i class='bx bx-user-circle'></i>
+              <i class='bx bxs-user-circle'></i>
+            </div>
+            <span class="link hide">O projekcie</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="1">
+          <a href="/chart1" {% if request.path=='/chart1' %}class="active"{% endif %} data-active="1">
+            <div class="icon">
+              <i class='bx bx-chart'></i>
+              <i class='bx bxs-chart'></i>
+            </div>
+            <span class="link hide">Uczenie bez danych pogodowych</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="2">
+          <a href="/chart2" {% if request.path=='/chart2' %}class="active"{% endif %} data-active="2">
+            <div class="icon">
+              <i class='bx bx-wind'></i>
+              <i class='bx bx-wind'></i>
+            </div>
+            <span class="link hide">Uczenie z danymi pogodowymi</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="3">
+          <a href="/chart3" {% if request.path=='/chart3' %}class="active"{% endif %} data-active="3">
+            <div class="icon">
+              <i class='bx bx-network-chart'></i>
+              <i class='bx bxs-network-chart'></i>
+            </div>
+            <span class="link hide">Prognoza zanieczyszczeń</span>
+          </a>
+        </li>
+        <div class="tooltip">
+          <span class="show">O projekcie</span>
+          <span>Uczenie bez danych pogodowych</span>
+          <span>Uczenie z danymi pogodowymi</span>
+          <span>Prognoza zanieczyszczeń</span>
+        </div>
+      </ul>
+    </div>
+  </nav>
 
-<div style="margin-left:250px;padding:1px 16px;height:1000px;">
-  <h2>{{header}}</h2>
-    <div id="chart" class="chart"></div>
-    <div>{{description}}</div>
-</div>
+  <main>
+    <div>
+      <h2>{{header}}</h2>
+        <div id="chart" class="chart" style="z-index: -1;"></div>
+        <div>{{description}}</div>
+    </div>
+    <p class="copyright">
+      &copy; 2022 - <span>Politechnika Rzeszowska, Przemysł 4.0 - Projekt,</span> Wszelkie prawa zastrzeżone.
+    </p>
+  </main>
 
+  <script src="/static/scripts/menu.js"></script>
 </body>
+
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script type="text/javascript">
-    var graphs = {{graphJSON | safe}};
-    Plotly.plot('chart',graphs,{});
-</script>
+    <script type="text/javascript">
+        var graphs = {{graphJSON | safe}};
+        Plotly.plot('chart',graphs,{});
+    </script>
+
 </html>
 
 

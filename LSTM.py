@@ -108,7 +108,7 @@ layout = go.Layout(
     yaxis = {'title' : "PM2.5[ug/m3]"}
 )
 fig = go.Figure(data=[trace1, trace2, trace3], layout=layout)
-fig.show()
+#fig.show()
 
 
 

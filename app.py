@@ -20,11 +20,8 @@ def index():
 def chart1():
 
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    header = "Fruit in North America"
-    description = """
-    A academic study of the number of apples, oranges and bananas in the cities of
-    San Francisco and Montreal would probably not come up with this chart.
-    """
+    header = "Wyniki uczenia bez danych pogodowych"
+    description = """Wykres przedstawia proces uczenia sieci neuronowej LSTM jedynie przy pomocy danych o ilości zanieczyszczeń PM 2.5"""
     return render_template('wykres.html', graphJSON=graphJSON, header=header, description=description)
 
 
@@ -32,40 +29,17 @@ def chart1():
 def chart2():
 
     graphJSON = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
-    header = "Vegetables in Europe"
-    description = """
-    The rumor that vegetarians are having a hard time in London and Madrid can probably not be
-    explained by this chart.
-    """
+    header = "Wyniki uczenia przy wykorzystaniu danych pogodowych"
+    description = """Wykres przedstawia proces uczenia sieci neuronowej LSTM wykorzystaniu danych dotyczących zanieczyszczeń PM 2.5 oraz danych pogodowych takich jak temperatura, wyligotnośc powietrza, czy siła i kierunek wiatru."""
     return render_template('wykres.html', graphJSON=graphJSON, header=header, description=description)
 
 @app.route('/chart3')
 def chart3():
 
     graphJSON = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
-    header = "Vegetables in Europe"
-    description = """
-    The rumor that vegetarians are having a hard time in London and Madrid can probably not be
-    explained by this chart.
-    """
+    header = "Prognoza zanieczyszczenia"
+    description = """Wykres przedstawia prognozę zanieczysczeń na podstawie utworzonego modelu w porówaniu do przewidywań platformy Airly"""
     return render_template('wykres.html', graphJSON=graphJSON, header=header, description=description)
-
-@app.route('/chart4')
-def chart4():
-
-    graphJSON = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
-    header = "Vegetables in Europe"
-    description = """
-    The rumor that vegetarians are having a hard time in London and Madrid can probably not be
-    explained by this chart.
-    """
-    return render_template('wykres.html', graphJSON=graphJSON, header=header, description=description)
-
-
-@app.route('/about')
-def about():
-
-    return render_template('about.html')
 
 
 

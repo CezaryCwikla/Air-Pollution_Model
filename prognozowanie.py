@@ -44,32 +44,34 @@ data = []
 
 i = 0
 for val in history:
-    data.append(
-        {
-            "date": val['fromDateTime'],
-            "pm25": val['values'][0]['value'], # same as in forecast below but throws IndexError: list index out of range
-            #"pm25": randrange(10, 25),
-            "temperature_2m": weather_hourly['temperature_2m'][i],
-            "precipitation": weather_hourly['precipitation'][i],
-            "windspeed_10m": weather_hourly['windspeed_10m'][i],
-            "relativehumidity_2m": weather_hourly['relativehumidity_2m'][i],
-            "winddirection_10m": weather_hourly['winddirection_10m'][i],
-        }
+    if len(val['values']) > 0:
+        data.append(       
+            {
+                "date": val['fromDateTime'],
+                "pm25": val['values'][0]['value'], # same as in forecast below but throws IndexError: list index out of range
+                #"pm25": randrange(10, 25),
+                "temperature_2m": weather_hourly['temperature_2m'][i],
+                "precipitation": weather_hourly['precipitation'][i],
+                "windspeed_10m": weather_hourly['windspeed_10m'][i],
+                "relativehumidity_2m": weather_hourly['relativehumidity_2m'][i],
+                "winddirection_10m": weather_hourly['winddirection_10m'][i],
+            }
     )
     i = i + 1
 
 i = 24
 for val in forecast:
-    data.append(
-        {
-            "date": val['fromDateTime'],
-            "pm25": val['values'][0]['value'],
-            "temperature_2m": weather_hourly['temperature_2m'][i],
-            "precipitation": weather_hourly['precipitation'][i],
-            "windspeed_10m": weather_hourly['windspeed_10m'][i],
-            "relativehumidity_2m": weather_hourly['relativehumidity_2m'][i],
-            "winddirection_10m": weather_hourly['winddirection_10m'][i],
-        }
+    if len(val['values']) > 0:
+        data.append(
+            {
+                "date": val['fromDateTime'],
+                "pm25": val['values'][0]['value'],
+                "temperature_2m": weather_hourly['temperature_2m'][i],
+                "precipitation": weather_hourly['precipitation'][i],
+                "windspeed_10m": weather_hourly['windspeed_10m'][i],
+                "relativehumidity_2m": weather_hourly['relativehumidity_2m'][i],
+                "winddirection_10m": weather_hourly['winddirection_10m'][i],
+            }
     )
     i = i + 1
 
@@ -124,7 +126,7 @@ layout = go.Layout(
     yaxis={'title': "PM2.5[ug/m3]"}
 )
 fig3 = go.Figure(data=[trace1, trace2, trace3], layout=layout)
-fig3.show()
+#fig3.show()
 trace1 = go.Scatter(
     # x=df_train['Data'],
     # y=df_train['PM2.5'],
