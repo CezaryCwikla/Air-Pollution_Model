@@ -90,6 +90,7 @@ trace3 = go.Scatter(
 layout = go.Layout(
     title = "Predykcja PM2.5",
     xaxis = {'title' : "Data"},
-    yaxis = {'title' : "PM2.5[ug/m3]"}
+    yaxis = {'title' : "PM2.5[ug/m3]"},
+    legend=dict(yanchor="top", y=-0.3, xanchor="center", x=0.5, orientation="h")
 )
 fig = go.Figure(data=[trace1, trace2, trace3], layout=layout)
