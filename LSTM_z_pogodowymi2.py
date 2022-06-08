@@ -67,7 +67,7 @@ data['Data'] = pd.to_datetime(data['Data'])
 data = data.sort_values(by="Data")
 
 data.set_axis(data['Data'], inplace=True)
-data.drop(columns=['PM10', 'CO', 'NO2', 'benzen', 'NO', 'NOs'], inplace=True)
+data.drop(columns=['PM10', 'CO', 'NO2', 'benzen', 'NO', 'NOs', 'MAX Predkosc wiatru'], inplace=True)
 data = data.drop('Data', axis=1)
 
 split_percent = 0.80
@@ -125,7 +125,8 @@ trace3 = go.Scatter(
 layout = go.Layout(
     title="Predykcja PM2.5",
     xaxis={'title': "Data"},
-    yaxis={'title': "PM2.5[ug/m3]"}
+    yaxis={'title': "PM2.5[ug/m3]"},
+    legend=dict(yanchor="top", y=-0.3, xanchor="center", x=0.5, orientation="h")
 )
 fig2 = go.Figure(data=[trace1, trace2, trace3], layout=layout)
 
