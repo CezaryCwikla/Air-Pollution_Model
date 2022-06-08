@@ -15,6 +15,10 @@ def createXY(dataset, n_past):
         dataY.append(dataset[i, 0])
     return np.array(dataX), np.array(dataY)
 
+## TUTAJ POBIERAMY DANE Z AIRLY I POGODOWE
+
+weather_url = 'https://api.open-meteo.com/v1/forecast?latitude=50.100&longitude=22.050&hourly=temperature_2m,relativehumidity_2m,precipitation,windspeed_10m&daily=windspeed_10m_max&timezone=Europe%2FBerlin&past_days=1'
+airly_api_url = 'https://airapi.airly.eu/v2/measurements/installation?installationId=7491'
 
 # TUTAJ POBIERAMY DANE Z AIRLY I POGODOWE
 
