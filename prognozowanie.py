@@ -1,4 +1,6 @@
 import plotly.graph_objects as go
+import certifi
+import ssl
 import requests
 import json
 from random import randrange
@@ -25,7 +27,7 @@ airly_api_url = 'https://airapi.airly.eu/v2/measurements/installation?installati
 my_model = keras.models.load_model('model')
 
 weather_url = 'https://api.open-meteo.com/v1/forecast?latitude=50.100&longitude=22.050&hourly=temperature_2m,relativehumidity_2m,precipitation,windspeed_10m,winddirection_10m&daily=windspeed_10m_max&timezone=Europe%2FBerlin&past_days=1'
-airly_api_url = 'https://airapi.airly.eu/v2/measurements/installation?installationId=7491'
+airly_api_url = 'http://10.20.0.158/api/v1/powietrza/czujniki/377/historyczne'
 
 headers = {'Accept': 'application/json',
            'Accept-Encoding': 'gzip',
@@ -35,49 +37,68 @@ headers = {'Accept': 'application/json',
 weather_res = requests.get(weather_url)
 
 airly_res = requests.get(airly_api_url, headers=headers)
+print(json.dumps(airly_res.json(), indent=4, sort_keys=True))
+history = airly_res.json()['Dane PM z ostatnich 24 godzin']
 
-history = airly_res.json()['history']
-
-forecast = airly_res.json()['forecast']
+#forecast = airly_res.json()['forecast']
 
 weather_hourly = weather_res.json()['hourly']
 
 weather_daily = weather_res.json()['daily']
 
 data = []
-
+data2 = []
 i = 0
 for val in history:
-    if len(val['values']) > 0:
+    if len(val) > 0:
         data.append(       
             {
-                "date": val['fromDateTime'],
-                "pm25": val['values'][0]['value'], # same as in forecast below but throws IndexError: list index out of range
+                "date": val['measurement_time'],
+                "pm25": val['pm25'], # same as in forecast below but throws IndexError: list index out of range
+
+            }
+    )
+    i = i + 1
+i = 0
+for val in history:
+    if i < 24:
+        data2.append(
+            {
+
                 #"pm25": randrange(10, 25),
+                "date_meteo": weather_hourly['time'][i],
                 "temperature_2m": weather_hourly['temperature_2m'][i],
                 "precipitation": weather_hourly['precipitation'][i],
                 "windspeed_10m": weather_hourly['windspeed_10m'][i],
                 "relativehumidity_2m": weather_hourly['relativehumidity_2m'][i],
                 "winddirection_10m": weather_hourly['winddirection_10m'][i],
             }
-    )
-    i = i + 1
+        )
+        i = i + 1
+    else:
+        break
+
+data3 = pd.DataFrame.from_dict(data)
+data3['date'] = pd.to_datetime(data3['date'])
+data3.set_index('date', inplace=True)
+data3 = data3.resample('H').mean()
+print(data3)
 
 i = 24
-for val in forecast:
-    if len(val['values']) > 0:
-        data.append(
-            {
-                "date": val['fromDateTime'],
-                "pm25": val['values'][0]['value'],
-                "temperature_2m": weather_hourly['temperature_2m'][i],
-                "precipitation": weather_hourly['precipitation'][i],
-                "windspeed_10m": weather_hourly['windspeed_10m'][i],
-                "relativehumidity_2m": weather_hourly['relativehumidity_2m'][i],
-                "winddirection_10m": weather_hourly['winddirection_10m'][i],
-            }
-    )
-    i = i + 1
+# for val in forecast:
+#     if len(val['values']) > 0:
+#         data.append(
+#             {
+#                 "date": val['fromDateTime'],
+#                 "pm25": val['values'][0]['value'],
+#                 "temperature_2m": weather_hourly['temperature_2m'][i],
+#                 "precipitation": weather_hourly['precipitation'][i],
+#                 "windspeed_10m": weather_hourly['windspeed_10m'][i],
+#                 "relativehumidity_2m": weather_hourly['relativehumidity_2m'][i],
+#                 "winddirection_10m": weather_hourly['winddirection_10m'][i],
+#             }
+#     )
+#     i = i + 1
 
 dataFrame = pd.read_json(json.dumps(data))
 dataFrame.index = dataFrame['date']
@@ -146,7 +167,7 @@ layout = go.Layout(
 )
 fig4 = go.Figure(data=[trace1], layout=layout)
 #
-# fig3.show()
+fig3.show()
 i = 1
 for val in data:
     print(i, val['date'])
