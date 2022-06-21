@@ -61,7 +61,7 @@ for val in history:
     i = i + 1
 i = 0
 for val in history:
-    if i < 24:
+    if i < 48:
         data2.append(
             {
 
@@ -101,6 +101,13 @@ i = 24
 #     i = i + 1
 
 dataFrame = pd.read_json(json.dumps(data))
+data2 = pd.read_json(json.dumps(data2))
+
+data2['date_meteo'] = pd.to_datetime(data2['date_meteo'])
+data2.set_index('date_meteo', inplace=True)
+
+data3 = data3.join(data2)
+print(data3)
 dataFrame.index = dataFrame['date']
 dataFrame = dataFrame.drop('date', axis=1)
 
