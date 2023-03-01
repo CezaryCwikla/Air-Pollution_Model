@@ -1,5 +1,4 @@
 # Air-Pollution_Model
-
 Najważniejszy jest plik LSTM z pogodowymi.py i Model LSTM z plotly.ipynb.
 
 Pozostałe pliki to historia. 
