@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Przemysł 4.0</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+  <nav>
+    <div class="sidebar-top">
+      <span class="shrink-btn">
+        <i class='bx bx-chevron-left'></i>
+      </span>
+      <img src="/static/img/logo.png" class="logo" alt="">
+      <h3 class="hide">Przemysł 4.0</h3>
+    </div>
+
+    <div class="sidebar-links">
+      <ul>
+        <div class="active-tab"></div>
+        <li class="tooltip-element" data-tooltip="0">
+          <a href="/" class="active" data-active="0">
+            <div class="icon">
+              <i class='bx bx-user-circle'></i>
+              <i class='bx bxs-user-circle'></i>
+            </div>
+            <span class="link hide">O projekcie</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="1">
+          <a href="/chart1" data-active="1">
+            <div class="icon">
+              <i class='bx bx-chart'></i>
+              <i class='bx bxs-chart'></i>
+            </div>
+            <span class="link hide">Uczenie bez danych pogodowych</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="2">
+          <a href="/chart2" data-active="2">
+            <div class="icon">
+              <i class='bx bx-wind'></i>
+              <i class='bx bx-wind'></i>
+            </div>
+            <span class="link hide">Uczenie z danymi pogodowymi</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="3">
+          <a href="/chart3" data-active="3">
+            <div class="icon">
+              <i class='bx bx-network-chart'></i>
+              <i class='bx bxs-network-chart'></i>
+            </div>
+            <span class="link hide">Prognoza zanieczyszczeń</span>
+          </a>
+        </li>
+        <div class="tooltip">
+          <span class="show">O projekcie</span>
+          <span>Uczenie bez danych pogodowych</span>
+          <span>Uczenie z danymi pogodowymi</span>
+          <span>Prognoza zanieczyszczeń</span>
+        </div>
+      </ul>
+    </div>
+  </nav>
+
+
+  <main>
+    <h1>Opis projektu</h1>
+    <p class="text">
+      Projekt w ramach przedmiotu "Technologie informatyczne dla przemysłu 4.0". Jego głównym celem było stworzenie
+      mechanizmu pozwalającego na prognozę zanieczyszczeń powietrza na podstawie danych pogodowych. Do prognozy wykorzystano autorski
+      model sztucnej sieci neuronowej LSTM (Long short-term memory) ze sprzężeniem zwrotnym.
+    </p>
+    <h2 style="margin-top: 15px ;">Nasz Zespół</h2>
+    <div class="contentpanel">
+      <div class="row">
+        <div class="column">
+          <div class="card">
+            <img src="/static/img/cezary.jpg" alt="cezary" style="width:100%">
+            <div class="container">
+              <h2>Cezary Ćwikła</h2>
+              <p class="title">Team Leader &amp; Data Science</p>
+              <p>Numer albumu: 156267</p>
+              <p><form action="mailto:156264@stud.prz.edu.pl" method="post" enctype="text/plain"><input type="submit" value="Contact" class="button"></form></p>
+            </div>
+          </div>
+        </div>
+      
+        <div class="column">
+          <div class="card">
+            <img src="/static/img/michal.jpg" alt="michal" style="width:100%">
+            <div class="container">
+              <h2>Michał Sochacki</h2>
+              <p class="title">Application &amp; Data Scraping</p>
+              <p>Numer albumu: 152214</p>
+              <p><form action="mailto:152214@stud.prz.edu.pl" method="post" enctype="text/plain"><input type="submit" value="Contact" class="button"></form></p>
+            </div>
+          </div>
+        </div>
+      
+        <div class="column">
+          <div class="card">
+            <img src="/static/img/darek.jpg" alt="darek" style="width:100%">
+            <div class="container">
+              <h2>Dariusz Rączka</h2>
+              <p class="title">Application &amp; Data Mining</p>
+              <p>Numer albumu: 152200</p>
+              <p><form action="mailto:152200@stud.prz.edu.pl" method="post" enctype="text/plain"><input type="submit" value="Contact" class="button"></form></p>
+            </div>
+          </div>
+        </div>
+    
+        <div class="column">
+          <div class="card">
+            <img src="/static/img/krzysiek.jpg" alt="krzysiek" style="width:100%">
+            <div class="container">
+              <h2>Krzystof Lang</h2>
+              <p class="title">Documentation &amp; Presentation</p>
+              <p>Numer albumu: 148853</p>
+              <p><form action="mailto:148853@stud.prz.edu.pl" method="post" enctype="text/plain"><input type="submit" value="Contact" class="button"></form></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <p class="copyright">
+      &copy; 2022 - <span>Politechnika Rzeszowska, Przemysł 4.0 - Projekt,</span> Wszelkie prawa zastrzeżone.
+    </p>
+  </main>
+
+  <script src="/static/scripts/menu.js"></script>
+</body>
+
+</html>
